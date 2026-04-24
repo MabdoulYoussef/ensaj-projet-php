@@ -1,0 +1,11 @@
+# Local config (copy from config/config.example.php)
+/config/config.php
+
+# Composer (if you add it later)
+/vendor/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
