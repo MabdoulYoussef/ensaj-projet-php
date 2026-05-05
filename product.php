@@ -34,12 +34,28 @@ if ($id === false) {
     }
 }
 
-function product_image_src(?string $imagePath): ?string
+function product_image_src(?string $imagePath, string $productName = ''): ?string
 {
-    if ($imagePath === null || $imagePath === '') {
-        return null;
+    if ($imagePath !== null && $imagePath !== '') {
+        return $imagePath;
     }
-    return $imagePath;
+
+    $fallbacks = [
+        'Baggy Denim Jeans - Washed Blue' => 'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1200&q=80',
+        'Oversized Essential Hoodie - Black' => 'https://images.unsplash.com/photo-1619603364904-c0498317e145?auto=format&fit=crop&w=1200&q=80',
+        'Straight Cargo Pants - Olive' => 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=1200&q=80',
+        'Boxy Graphic Tee - Off White' => 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80',
+        'Relaxed Fit Chino Trousers - Beige' => 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=1200&q=80',
+        'Denim Jacket - Stone Grey' => 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1200&q=80',
+        'Flannel Overshirt - Brown Check' => 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=80',
+        'Techwear Windbreaker - Matte Black' => 'https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=80',
+        'Loose Fit Sweatpants - Charcoal' => 'https://images.unsplash.com/photo-1506629905607-d405b7a16a74?auto=format&fit=crop&w=1200&q=80',
+        'Minimal Leather Sneakers - White' => 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1200&q=80',
+        'Classic Bomber Jacket - Navy' => 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=1200&q=80',
+        'Knit Polo Shirt - Sand' => 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=1200&q=80',
+    ];
+
+    return $fallbacks[$productName] ?? null;
 }
 
 function first_char_upper(string $text): string
@@ -214,7 +230,7 @@ function first_char_upper(string $text): string
       $desc = $product['description'] !== null ? (string) $product['description'] : '';
       $price = (float) $product['price'];
       $stock = (int) $product['stock'];
-      $img = product_image_src($product['image_path'] !== null ? (string) $product['image_path'] : null);
+      $img = product_image_src($product['image_path'] !== null ? (string) $product['image_path'] : null, $name);
       $initial = first_char_upper($name);
       $inStock = $stock > 0;
       ?>
